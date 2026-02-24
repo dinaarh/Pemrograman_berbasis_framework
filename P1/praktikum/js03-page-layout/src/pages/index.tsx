@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Inter } from 'next/font/google'
-import Navbar from '@/components/layouts/navbar'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +14,7 @@ export default function Home() {
       <Head>
         <title>Praktikum Next.js</title>
       </Head>
-      <Navbar />
+      
       <h1 style={{ color: '#1F497D' }}>
         Praktikum Next.js Pages Router
       </h1>
