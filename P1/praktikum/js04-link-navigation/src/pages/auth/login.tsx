@@ -10,6 +10,7 @@ const halamanLogin = () => {
   const handlerLogin = () => {
     // Simulasi: jika username dan password diisi, navigasi ke produk
     if (username && password) {
+      localStorage.setItem('isLogin', 'true');
       push('/produk');
     } else {
       alert('Harap isi username dan password!');
