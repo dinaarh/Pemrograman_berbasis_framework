@@ -1,7 +1,8 @@
 import { useRouter } from 'next/router';
 import Navbar from '../navbar';
 
-const disableNavbar = ['/auth/login', '/auth/register'];
+// Tambahkan '/404' ke dalam array
+const disableNavbar = ['/auth/login', '/auth/register', '/404'];
 
 type AppShellProps = {
   children: React.ReactNode;
