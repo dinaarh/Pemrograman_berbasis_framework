@@ -50,4 +50,31 @@
     line-height: 1.7;
     margin-bottom: 0;
   }
+  
+    &__button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 1.75rem;
+    padding: 0.75rem 2rem;
+    background-color: #ffffff;
+    color: #667eea;
+    font-weight: 700;
+    font-size: 0.95rem;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+
+    &:hover {
+      background-color: #f0f4ff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
 }
