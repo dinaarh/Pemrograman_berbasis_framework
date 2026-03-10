@@ -50,7 +50,13 @@ const halamanLogin = () => {
       <br /><br />
 
       {/* Navigasi Deklaratif: Login <-> Register */}
-      <p>Belum punya akun?</p>
+        <p
+        style={{
+            color: 'red',
+            border: '1px solid red',
+            borderRadius: '5px',
+            padding: '5px'
+        }}>Belum punya akun?</p>
       <Link href='/auth/register'>Ke Halaman Register</Link>
     </div>
   );
