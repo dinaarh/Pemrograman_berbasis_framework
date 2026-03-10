@@ -1,5 +1,7 @@
+import { useRouter } from 'next/router';
 import Navbar from '../navbar';
-import Footer from '../Footer';
+
+const disableNavbar = ['/auth/login', '/auth/register'];
 
 type AppShellProps = {
   children: React.ReactNode;
@@ -7,16 +9,14 @@ type AppShellProps = {
 
 const AppShell = (props: AppShellProps) => {
   const { children } = props;
+  const { pathname } = useRouter();
+
   return (
-    <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Navbar />
-      <div style={{ flex: 1, padding: '20px' }}>
-        {children}
-      </div>
-      <Footer />
+    <main>
+      {!disableNavbar.includes(pathname) && <Navbar />}
+      {children}
     </main>
   );
 };
-
 
 export default AppShell;
