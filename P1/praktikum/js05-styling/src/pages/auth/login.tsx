@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import styles from './login.module.css';
 
 const halamanLogin = () => {
   const { push } = useRouter();
@@ -18,25 +19,27 @@ const halamanLogin = () => {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Halaman Login</h1>
+    <div className={styles.login}>
+      <div style={{ padding: '20px' }}>
+        <h1>Halaman Login</h1>
 
-      {/* Form sederhana */}
-      <div>
-        <input
-          type='text'
-          placeholder='Username'
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{ display: 'block', marginBottom: '10px' }}
-        />
-        <input
-          type='password'
-          placeholder='Password'
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{ display: 'block', marginBottom: '10px' }}
-        />
+        {/* Form sederhana */}
+        <div>
+          <input
+            type='text'
+            placeholder='Username'
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            style={{ display: 'block', marginBottom: '10px' }}
+          />
+          <input
+            type='password'
+            placeholder='Password'
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{ display: 'block', marginBottom: '10px' }}
+          />
+        </div>
       </div>
 
       {/* Navigasi Imperatif: Login -> Produk */}
