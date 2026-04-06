@@ -1,40 +1,26 @@
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import HeroSection from './HeroSection';
-import MainSection from './MainSection';
-
-const TampilanProduk = () => {
-  const [isLogin, setIsLogin] = useState(false);
-  const [loading, setLoading] = useState(true);
-  const { push } = useRouter();
-
-  useEffect(() => {
-    const loginStatus = localStorage.getItem('isLogin');
-    if (loginStatus === 'true') {
-      setIsLogin(true);
-    } else {
-      push('/auth/login');
-    }
-    setLoading(false);
-  }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem('isLogin');
-    push('/auth/login');
-  };
-
-  if (loading) return <div>Loading...</div>;
-
-  return (
-    <>
-      <HeroSection />
-      <MainSection />
-      <div style={{ padding: '20px' }}>
-        <p>Selamat datang! Anda sudah login.</p>
-        <button onClick={handleLogout}>Logout</button>
-      </div>
-    </>
-  );
+type ProductType = {
+  id: string;
+  name: string;
+  price: number;
+  image: string;
+  category: string;
 };
 
+// Komponen menerima props 'products' dari parent (pages/)
+const TampilanProduk = ({ products }: { products: ProductType[] }) => {
+  return (
+    <div>
+      <h1>Daftar Produk</h1>
+      {products.map((products: ProductType) => (
+        <div key={products.id}>
+          <h2>nama :{products.name}</h2>
+          <p>Harga: {products.price}</p>
+          <img src={products.image} alt={products.name} width={200} />
+          <p>kategori: {products.category}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
 export default TampilanProduk;
+
