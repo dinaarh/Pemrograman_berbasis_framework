@@ -1,47 +1,64 @@
+import styles from '../../produk/produk.module.scss'; // Pastikan path file SCSS ini sudah benar
+
 type ProductType = {
   id: string;
   name: string;
   price: bigint; 
-  image: string; 
-  size: string;
+  image: string;
+  size?: string; 
   category: string;
 };
 
 // Komponen menerima props 'products' dari parent
 const TampilanProduk = ({ products }: { products: ProductType[] }) => {
   return (
-    <div>
+    <div className={styles.produk}>
+      <h1 className={styles.produk__title}>Daftar Produk</h1>
+
       {/* Jika tidak ada produk, tampilkan pesan ini */}
       {products.length === 0 && (
-        <p style={{ color: '#9ca3af' }}>Tidak ada data produk.</p>
+        <p style={{ color: '#9ca3af', textAlign: 'center', marginTop: '1rem' }}>
+          Tidak ada data produk.
+        </p>
       )}
 
-      
-      {products.map((product: ProductType) => (
-        <div key={product.id} style={{
-          border: '1px solid #e5e7eb',
-          padding: '1rem',
-          marginBottom: '0.75rem',
-          borderRadius: '8px',
-          backgroundColor: '#f9fafb'
-        }}>
-          <h2 style={{ margin: '0 0 0.5rem' }}>{product.name}</h2>
-          
-          <p style={{ margin: '0.25rem 0' }}>
-            Harga: <strong>Rp {product.price.toLocaleString('id-ID')}</strong>
-          </p>
-          
-          {product.size && <p style={{ margin: '0.25rem 0' }}>Ukuran: {product.size}</p>}
-          {product.image && <img src={product.image} alt={product.name} width={200} style={{ marginTop: '10px' }} />}
-          
-          <p style={{ margin: '0.25rem 0' }}>
-            Kategori: <span style={{ backgroundColor: '#dbeafe', padding: '2px 8px', borderRadius: '9999px', fontSize: '0.8rem' }}>
-              {product.category}
-            </span>
-          </p>
+      <div className={styles.produk__content}>
+        {/* Menggunakan nama variabel 'product' (tunggal) agar tidak rancu dengan 'products' (jamak) */}
+        {products.map((product: ProductType) => (
+          <div key={product.id} className={styles.produk__content__item}>
+            
+            {/* Bagian Gambar */}
+            <div className={styles.produk__content__item__image}>
+              {product.image && (
+                <img src={product.image} alt={product.name} width={200} />
+              )}
+            </div>
 
-        </div>
-      ))}
+            {/* Nama Produk */}
+            <h4 className={styles.produk__content__item__name}>
+              {product.name}
+            </h4>
+
+            {/* Kategori */}
+            <p className={styles.produk__content__item__category}>
+              {product.category}
+            </p>
+
+            {/* Menampilkan Ukuran jika datanya tersedia */}
+            {product.size && (
+              <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0' }}>
+                Ukuran: {product.size}
+              </p>
+            )}
+
+            {/* Harga */}
+            <p className={styles.produk__content__item__price}>
+              Rp {product.price.toLocaleString('id-ID')}
+            </p>
+
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
