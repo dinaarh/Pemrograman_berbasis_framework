@@ -7,6 +7,7 @@ type ProductType = {
   name: string;
   price: bigint;
   size: string;
+  category: string; 
 };
 
 const kategori = () => {
@@ -39,10 +40,16 @@ const kategori = () => {
     <div>
       <h1>Daftar Produk</h1>
       {products.map((product: ProductType) => (
-        <div key={product.id}>
+        <div key={product.id} style={{
+          border: '1px solid #ddd',
+          padding: '1rem',
+          marginBottom: '1rem',
+          borderRadius: '8px'
+        }}>
           <h2>{product.name}</h2>
-          <p>Harga: {product.price}</p>
+          <p>Harga: Rp {product.price.toLocaleString('id-ID')}</p>
           <p>Ukuran: {product.size}</p>
+          <p>Kategori: <strong>{product.category}</strong></p>
         </div>
       ))}
     </div>
