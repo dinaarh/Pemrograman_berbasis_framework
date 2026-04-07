@@ -1,12 +1,5 @@
 import TampilanProduk from '../views/produk';
-
-type ProductType = {
-  id: string;
-  name: string;
-  price: bigint;
-  image: string;
-  category: string;
-};
+import { ProductType } from '../types/Product.type';  
 
 // Komponen halaman — menerima props dari getServerSideProps
 // props.products sudah berisi data saat komponen dirender
