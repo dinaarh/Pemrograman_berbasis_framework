@@ -23,41 +23,57 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
       )}
 
       <div className={styles.produk__content}>
-        {/* Menggunakan nama variabel 'product' (tunggal) agar tidak rancu dengan 'products' (jamak) */}
-        {products.map((product: ProductType) => (
-          <div key={product.id} className={styles.produk__content__item}>
-            
-            {/* Bagian Gambar */}
-            <div className={styles.produk__content__item__image}>
-              {product.image && (
-                <img src={product.image} alt={product.name} width={200} />
-              )}
-            </div>
+        {products.length > 0 ? (
+        <>
+            {/* Menggunakan 'product' (tunggal) agar lebih rapi */}
+            {products.map((product: ProductType) => (
+              <div key={product.id} className={styles.produk__content__item}>
+                
+                {/* Bagian Gambar */}
+                <div className={styles.produk__content__item__image}>
+                  {product.image && (
+                    <img src={product.image} alt={product.name} width={200} />
+                  )}
+                </div>
 
-            {/* Nama Produk */}
-            <h4 className={styles.produk__content__item__name}>
-              {product.name}
-            </h4>
+                {/* Nama Produk */}
+                <h4 className={styles.produk__content__item__name}>
+                  {product.name}
+                </h4>
 
-            {/* Kategori */}
-            <p className={styles.produk__content__item__category}>
-              {product.category}
-            </p>
+                {/* Kategori */}
+                <p className={styles.produk__content__item__category}>
+                  {product.category}
+                </p>
 
-            {/* Menampilkan Ukuran jika datanya tersedia */}
-            {product.size && (
-              <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0' }}>
-                Ukuran: {product.size}
-              </p>
-            )}
+                {/* Menampilkan Ukuran jika datanya tersedia */}
+                {product.size && (
+                  <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0' }}>
+                    Ukuran: {product.size}
+                  </p>
+                )}
 
-            {/* Harga */}
-            <p className={styles.produk__content__item__price}>
-              Rp {product.price.toLocaleString('id-ID')}
-            </p>
+                {/* Harga */}
+                <p className={styles.produk__content__item__price}>
+                  Rp {product.price.toLocaleString('id-ID')}
+                </p>
 
-          </div>
-        ))}
+              </div>
+            ))}
+          </>
+        ) : (
+          <>
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <div key={n} className={styles.produk__content__skeleton}>
+                <div className={styles.produk__content__skeleton__image}></div>
+                <div className={styles.produk__content__skeleton__name}></div>
+                <div className={styles.produk__content__skeleton__category}></div>
+                <div className={styles.produk__content__skeleton__price}></div>
+              </div>
+            ))}
+          </>
+        )}
+
       </div>
     </div>
   );
