@@ -1,30 +1,29 @@
-// SEBELUM
 import { useEffect, useState } from 'react';
-import TampilanProduk from '../views/produk';
+import useSWR from 'swr';
+import TampilanProduk from '../views/produk'; 
+import fetcher from '../utils/swr/fetcher';
 
 const Kategori = () => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading]   = useState(false);
+  // SWR: menggantikan seluruh useState dan useEffect
+  // - data      = respons dari API
+  // - error     = object error jika gagal
+  // - isLoading = true saat memuat pertama kali, false setelah selesai
+  const { data, error, isLoading } = useSWR('/api/produk', fetcher);
 
-  useEffect(() => {
-    setLoading(true);
-    fetch('/api/produk')
-      .then((response) => response.json())
-      .then((responsedata) => {
-        setProducts(responsedata.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error('Error fetching produk:', error);
-        setLoading(false);
-      });
-  }, []);
+  //  pesan jika API gagal dipanggil
+  if (error) return <div style={{ padding: '2rem', textAlign: 'center' }}>Gagal memuat data produk...</div>;
 
   return (
     <div>
-       {loading && <p>Mengambil data...</p>}
-       {!loading && <TampilanProduk products={products} />}
+      {/*
+        Logika:
+        - Jika isLoading = true  -> kirim array kosong [] -> TampilanProduk memunculkan SKELETON
+        - Jika isLoading = false -> kirim data.data -> TampilanProduk memunculkan KARTU PRODUK ASLI
+        ( menggunakan data?.data untuk mencegah error jika data belum siap)
+      */}
+      <TampilanProduk products={isLoading ? [] : data?.data} />
     </div>
   );
 };
+
 export default Kategori;
