@@ -1,5 +1,5 @@
-import TampilanProduk from '../views/produk';
-import { ProductType } from '../types/Product.type';  
+import TampilanProduk from '../../views/produk';
+import { ProductType } from '../../types/Product.type';  
 
 // Komponen halaman — menerima props dari getServerSideProps
 // props.products sudah berisi data saat komponen dirender

@@ -1,4 +1,4 @@
-import styles from '../../produk/produk.module.scss'; // Pastikan path file SCSS ini sudah benar
+import styles from '../../pages/produk/produk.module.scss'; 
 
 type ProductType = {
   id: string;

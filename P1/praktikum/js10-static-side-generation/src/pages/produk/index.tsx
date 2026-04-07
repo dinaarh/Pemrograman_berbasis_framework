@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import useSWR from 'swr';
-import TampilanProduk from '../views/produk'; 
-import fetcher from '../utils/swr/fetcher';
+import TampilanProduk from '../../views/produk'; 
+import fetcher from '../../utils/swr/fetcher';
 
 const Kategori = () => {
   // SWR: menggantikan seluruh useState dan useEffect
