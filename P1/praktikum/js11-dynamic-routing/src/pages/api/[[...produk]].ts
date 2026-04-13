@@ -1,22 +1,28 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { retrieveProducts } from '../../utils/db/servicefirebase';
+import { retrieveDataByID, retrieveProducts }
+  from '../../utils/db/servicefirebase';
 
-// Tipe respons API (lebih fleksibel karena data dari Firestore bisa bervariasi)
-type Data = {
-  status: boolean;
-  status_code: number;
-  data: any;
+type Data = { 
+  status: boolean; 
+  status_code: number; 
+  data?: any 
 };
 
-// Handler perlu menjadi async karena retrieveProducts adalah async function
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Data>,
+  res: NextApiResponse<Data>
 ) {
-  // Ambil data dari Firestore collection 'products'
-  const data = await retrieveProducts('products');
-
-  // Kirim response JSON
-  res.status(200).json({ status: true, status_code: 200, data });
+  // Jika ada ID (index ke-1 karena index ke-0 adalah 'produk')
+  if (req.query.produk?.[1]) {
+    const data = await retrieveDataByID(
+      'products',
+      req.query.produk[1]
+    );
+    res.status(200).json({ status: true, status_code: 200, data });
+    return;
+  } else {
+    // Semua produk
+    const data = await retrieveProducts('products');
+    res.status(200).json({ status: true, status_code: 200, data });
+  }
 }
