@@ -1,4 +1,4 @@
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, collection, getDocs, getDoc, doc } from 'firebase/firestore';
 import app from './firebase';
 
 // Inisialisasi Firestore dari Firebase App
@@ -17,5 +17,12 @@ export async function retrieveProducts(collectionName: string) {
     ...doc.data(),        // Semua field dokumen (name, price, size, dll.)
   }));
 
+  return data;
+}
+
+// Ambil satu produk berdasarkan ID
+export async function retrieveDataByID(collectionName: string, id: string) {
+  const snapshot = await getDoc(doc(db, collectionName, id));
+  const data = snapshot.data();
   return data;
 }
