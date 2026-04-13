@@ -2,18 +2,26 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 
 type Data = {
   revalidated: boolean;
+  message?: string;  // Pesan informasi
 };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  try {
-    // Trigger revalidasi halaman /produk/static segera
-    await res.revalidate('/produk/static');
-    return res.status(200).json({ revalidated: true });
-  } catch (error) {
-    console.error('Error in API route:', error);
-    res.status(500).send({ revalidated: false });
+  if (req.query.data === 'produk') {
+    try {
+      await res.revalidate('/produk/static');
+      return res.status(200).json({ revalidated: true });
+    } catch (error) {
+      console.error('Error in API route:', error);
+      res.status(500).send({ revalidated: false });
+    }
   }
+
+  // Jika parameter tidak valid
+  return res.json({
+    revalidated: false,
+    message: "Invalid query parameter. Expected 'data=produk'.",
+  });
 }
