@@ -1,4 +1,5 @@
 import styles from '../../pages/produk/produk.module.scss'; 
+import Link from 'next/link';
 
 type ProductType = {
   id: string;
@@ -26,39 +27,37 @@ const TampilanProduk = ({ products }: { products: ProductType[] }) => {
         {products.length > 0 ? (
         <>
             {/* Menggunakan 'product' (tunggal) agar lebih rapi */}
-            {products.map((product: ProductType) => (
-              <div key={product.id} className={styles.produk__content__item}>
-                
+            {products.map((products: ProductType) => (
+              <Link href={`/produk/${products.id}`}key={products.id}className={styles.produk__content__item}>
                 {/* Bagian Gambar */}
                 <div className={styles.produk__content__item__image}>
-                  {product.image && (
-                    <img src={product.image} alt={product.name} width={200} />
+                  {products.image && (
+                    <img src={products.image} alt={products.name} width={200} />
                   )}
                 </div>
 
                 {/* Nama Produk */}
                 <h4 className={styles.produk__content__item__name}>
-                  {product.name}
+                  {products.name}
                 </h4>
 
                 {/* Kategori */}
                 <p className={styles.produk__content__item__category}>
-                  {product.category}
+                  {products.category}
                 </p>
 
                 {/* Menampilkan Ukuran jika datanya tersedia */}
-                {product.size && (
+                {products.size && (
                   <p style={{ fontSize: '0.875rem', color: '#6b7280', margin: '4px 0' }}>
-                    Ukuran: {product.size}
+                    Ukuran: {products.size}
                   </p>
                 )}
 
                 {/* Harga */}
                 <p className={styles.produk__content__item__price}>
-                  Rp {product.price.toLocaleString('id-ID')}
+                  Rp {products.price.toLocaleString('id-ID')}
                 </p>
-
-              </div>
+              </Link>
             ))}
           </>
         ) : (
