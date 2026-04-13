@@ -23,5 +23,8 @@ export async function getStaticProps() {
     props: {
       products: response.data,
     },
+    // Setiap 10 detik halaman akan dicek ulang
+    // Jika ada perubahan data → cache diperbarui
+    revalidate: 10,
   };
 }
