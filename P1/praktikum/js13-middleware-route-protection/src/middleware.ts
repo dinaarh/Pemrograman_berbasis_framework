@@ -6,3 +6,8 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(new URL("/", request.url));
 //   return NextResponse.next();
 }
+
+// Konfigurasi: middleware HANYA berlaku untuk route ini
+export const config = {
+  matcher: ["/produk", "/about"],
+};
