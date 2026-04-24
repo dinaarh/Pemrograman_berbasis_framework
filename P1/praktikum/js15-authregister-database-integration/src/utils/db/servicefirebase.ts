@@ -3,6 +3,7 @@ import {
   getDoc, doc, query, addDoc, where,
 } from 'firebase/firestore';
 import app from './firebase';
+import bcrypt from 'bcrypt';
 
 const db = getFirestore(app);
 
@@ -21,7 +22,7 @@ export async function retrieveDataByID(collectionName: string, id: string) {
 }
 
 export async function signUp(
-  userData: { email: string; fullname: string; password: string; },
+  userData: { email: string; fullname: string; password: string, role?: string; },
   callback: Function
 ) {
   const q = query(
@@ -36,6 +37,14 @@ export async function signUp(
   if (data.length > 0) {
     callback({ status: 'error', message: 'User already exists' });
   } else {
-    callback({ status: 'success', message: 'User registered successfully' });
+    userData.password = await bcrypt.hash(userData.password, 10);
+    userData.role = 'user';
+    await addDoc(collection(db, 'users'), userData)
+      .then(() => {
+        callback({ status: 'success', message: 'User registered successfully' });
+      })
+      .catch((error) => {
+        callback({ status: 'error', message: error.message });
+      });
   }
 }
