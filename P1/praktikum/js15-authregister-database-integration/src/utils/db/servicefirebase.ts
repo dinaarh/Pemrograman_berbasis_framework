@@ -1,28 +1,41 @@
-import { getFirestore, collection, getDocs, getDoc, doc } from 'firebase/firestore';
+import {
+  getFirestore, collection, getDocs, Firestore,
+  getDoc, doc, query, addDoc, where,
+} from 'firebase/firestore';
 import app from './firebase';
 
-// Inisialisasi Firestore dari Firebase App
 const db = getFirestore(app);
 
-// Fungsi untuk mengambil semua dokumen dari sebuah collection
-// Parameter: collectionName — nama collection Firestore (contoh: 'products')
-// Return: array of objects dengan id dan semua field dokumen
 export async function retrieveProducts(collectionName: string) {
-  // getDocs mengambil semua dokumen dalam collection sekaligus
   const snapshot = await getDocs(collection(db, collectionName));
-
-  // Map snapshot menjadi array objek JavaScript
   const data = snapshot.docs.map((doc) => ({
-    id: doc.id,           // Document ID dari Firestore
-    ...doc.data(),        // Semua field dokumen (name, price, size, dll.)
+    id: doc.id, ...doc.data(),
   }));
-
   return data;
 }
 
-// Ambil satu produk berdasarkan ID
 export async function retrieveDataByID(collectionName: string, id: string) {
   const snapshot = await getDoc(doc(db, collectionName, id));
   const data = snapshot.data();
   return data;
+}
+
+export async function signUp(
+  userData: { email: string; fullname: string; password: string; },
+  callback: Function
+) {
+  const q = query(
+    collection(db, 'users'),
+    where('email', '==', userData.email),
+  );
+  const querySnapshot = await getDocs(q);
+  const data = querySnapshot.docs.map((doc) => ({
+    id: doc.id, ...doc.data(),
+  }));
+
+  if (data.length > 0) {
+    callback({ status: 'error', message: 'User already exists' });
+  } else {
+    callback({ status: 'success', message: 'User registered successfully' });
+  }
 }
