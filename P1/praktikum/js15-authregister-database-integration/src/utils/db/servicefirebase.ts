@@ -38,7 +38,7 @@ export async function signUp(
     callback({ status: 'error', message: 'User already exists' });
   } else {
     userData.password = await bcrypt.hash(userData.password, 10);
-    userData.role = 'user';
+    userData.role = 'member';
     await addDoc(collection(db, 'users'), userData)
       .then(() => {
         callback({ status: 'success', message: 'User registered successfully' });
