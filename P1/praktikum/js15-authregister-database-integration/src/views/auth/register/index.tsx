@@ -45,7 +45,7 @@ const TampilanRegister = () => {
               Email
             </label>
             <input type='email' id='email' name='email'
-              placeholder='Email'
+              placeholder='Email' required
               className={style.register__form__item__input} />
           </div>
           {/* Field Fullname */}
@@ -55,7 +55,7 @@ const TampilanRegister = () => {
               Fullname
             </label>
             <input type='text' id='Fullname' name='Fullname'
-              placeholder='Fullname'
+              placeholder='Fullname'required
               className={style.register__form__item__input} />
           </div>
           {/* Field Password */}
@@ -65,7 +65,7 @@ const TampilanRegister = () => {
               Password
             </label>
             <input type='password' id='Password' name='Password'
-              placeholder='Password'
+              placeholder='Password' required minLength={6}
               className={style.register__form__item__input} />
           </div>
            {/* Button Register */}
